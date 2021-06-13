@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pasien;
+use App\Models\Pasien;
+use App\Imports\pasienImport;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\pasiencontroller;
 
 class pasiencontroller extends Controller
 {
@@ -104,7 +107,7 @@ class pasiencontroller extends Controller
     public function destroy($id)
     {
         //
-        $pasien = pasien::find($id);
+        $pasien =  App\Models\User::find($id);
         $pasien->delete();
 
         return redirect('pasien');
@@ -123,21 +126,13 @@ class pasiencontroller extends Controller
 
         //temporary file
         $path = $file->storeAs('public/excel/',$nama_file);
-
         // import data
-        $import = Excel::import(new pasienImport(), storage_path('app/public/excel/'.$nama_file));
-
+        $import = Excel::import(new pasienImport(), storage_path('app/public/excel/' . $nama_file));
         $pasien = DB::table('pasien');
         if($import) {
-            //redirect
-            //return redirect()->route('pasien.index')->with(['success' => 'Data Berhasil Diimport!']);
-            //return view('0264_Tampil' , ['pasien' => $pasien]); 
             return redirect('/pasien');
 
         } else {
-            //redirect
-            //return redirect()->route('.index')->with(['error' => 'Data Gagal Diimport!']);
-            //return view('0264_Tampil' , ['pasien' => $pasien]); 
             return redirect('/pasien');
 
         }

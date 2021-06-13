@@ -3,10 +3,9 @@
 namespace App\Imports;
 
 use App\Models\Pasien;
-use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\ToModel;;
+use Maatwebsite\Excel\Concerns\ToModel;
 
-class pasienImport implements ToModel
+class UsersImport implements ToModel
 {
     /**
     * @param array $row
@@ -15,11 +14,10 @@ class pasienImport implements ToModel
     */
     public function model(array $row)
     {
-        return new Pasien([
+        return new User([
             //
-                'nama'     => $row[0],
-                'alamat'   => $row[1], 
+            'nama' => $row[0],
+            'alamat' => $row[1],
         ]);
-        
     }
 }

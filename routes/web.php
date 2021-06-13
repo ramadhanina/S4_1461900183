@@ -19,6 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pasien', [pasiencontroller::class, 'index']);
-Route::post('/pasien/import_excel', [pasiencontroller::class, 'import']);
 Route::resource('pasien', pasiencontroller::class);
+Route::post('/pasien/import_excel', [pasiencontroller::class, 'import']);
